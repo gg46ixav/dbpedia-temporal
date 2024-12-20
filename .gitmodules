@@ -1,0 +1,3 @@
+[submodule "ODIBEL"]
+	path = ODIBEL
+	url = git@github.com:ScaDS/ODIBEL.git
