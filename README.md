@@ -11,23 +11,40 @@ The DBpedia Temporal Knowledge Graph (DBpedia-TKG) is an extension of the DBpedi
 
 # Datasets 
 
-<p float="left">
-  <img src="eval/figures/snapshot_evolution.png" width="49%" />
-  <img src="eval/figures/degree_distribution.png" width="49%" /> 
-</p>
+> The zenodo repository contains further statisitcs on the TKG.
 
 | Name | Varian | Version | DOI | Other Links |
 | --- | --- | --- | --- | ---|
 | DBpedia-TKG | FULL | 2024-06-01 | [10.5281/zenodo.14532571](https://doi.org/10.5281/zenodo.14532571) | [Other Formats \& Supplements](https://cloud.scadsai.uni-leipzig.de/index.php/s/QeyqwaWSqPgpHdq) |
 
+
+<p float="left">
+  <img src="eval/figures/snapshot_evolution.png" width="49%" />
+  <img src="eval/figures/degree_distribution.png" width="49%" /> 
+</p>
+
+
 # Data Model
 
-CSV Snippet
-```
+**CSV Snippet**
+
+```csv
+head,       rel,                tail,                   tStart,      tEnd,     rStart, rEnd
+dbo:Leipzig,dbo:populationTotal,"510043"^<xsd:integer>, 2019-08-13, 2019-10-28, 389,   647
+dbo:Leipzig,dbo:populationTotal,"605407"^<xsd:integer>, 2019-10-28, 2021-04-11, 647,   250
+...
 ```
 
-NQ Snippet
-```
+**NQuads Snippet**
+
+```turtle
+<dbr/Leipzig> <dbo/populationTotal> "510043" <tkg/..389-..647> .
+<tkg/..389-..647> <tkg/start> "2019-08-13 12:02:50"^^xsd:dateTime <tkg> .
+<tkg/..389-..647> <tkg/end>   "2019-10-28 19:35:51"^^xsd:dateTime <tkg> .
+
+<dbr/Leipzig> <dbo/populationTotal> "605407" <tkg/..647-..250> .
+<tkg/..647-..250> <tkg/start> "2019-10-28 19:35:51"^^xsd:dateTime <tkg> .
+<tkg/..647-..250>  <tkg/end>  "2021-04-11 18:51:06"^^xsd:dateTime <tkg> .
 ```
 
 # Development 
