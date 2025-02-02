@@ -11,9 +11,7 @@ dief-install:
 	mvn package -DskipTests; \
 
 build-docker:
-	#cd extraction-framework
-	#VERS=$(git
-	docker build -t local/dbpedia/dief .
+	docker build -t 127.0.0.1:5000/dbpedia/dief .;
 
 
 test-dief-curl:

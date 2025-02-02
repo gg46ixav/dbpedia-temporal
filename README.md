@@ -47,6 +47,10 @@ dbo:Leipzig,dbo:populationTotal,"605407"^<xsd:integer>, 2019-10-28, 2021-04-11, 
 <tkg/..647-..250>  <tkg/end>  "2021-04-11 18:51:06"^^xsd:dateTime <tkg> .
 ```
 
+# Generation Guidelines
+
+see generation.md
+
 # Development 
 
 Development notes.
