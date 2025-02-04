@@ -46,3 +46,7 @@ docker service create -n dief -p 9999:9999 --replicas $SCALE 127.0.0.1:5000/dbpe
 
 # 3. Evaluation
 
+The `generation` contains scripts for calculating statistics or metrics, and ploting results.
+
+The main evaluation includes:
+* TODO
