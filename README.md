@@ -7,6 +7,8 @@ The DBpedia Temporal Knowledge Graph (DBpedia-TKG) is an extension of the DBpedi
 - **[deploy](deploy/)**  contains the relvant files to deploy the DIEF servers and the SPARK cluster to Docker Swarm.
 - **[execute](execute)** contains relevant scripts to execute and evaluate DBpedia Temporal construction.
 - **[eval](eval)** contains python code to plot the results from the eval process 
+- **[examples](examples)** contains query examples on extracted DBpedia-TKG data
+- **[generation.md](generation.md)**  short documentation to execute a simple extraction
 - **[ODIBEL]()** framework that currently contains the Scala SPARK code for construction and evaluation of the DBpedia temporal graph (will be migrated soon!)
 
 # Datasets 
