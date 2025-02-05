@@ -5,51 +5,52 @@ services:
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     hostname: master
     environment:
-      HADOOP_USER_NAME: hadena
-      HADOOP_CONF_DIR: /conf/hadoop
+      # HADOOP_USER_NAME: hadena
+      # HADOOP_CONF_DIR: /conf/hadoop
       SPARK_CONF_DIR: /conf
-      SPARK_MASTER_PORT: 37077
-      SPARK_MASTER_WEBUI_PORT: 38080
+      SPARK_MASTER_PORT: 7077
+      SPARK_MASTER_WEBUI_PORT: 8080
       SPARK_MASTER_OPTS: "-Dspark.master.rest.port=36060 -Dspark.ui.port=34040"
-      SPARK_LOCAL_HOSTNAME: '{{.Node.Hostname}}'
-    networks:
-      - outside
-    volumes:
-      - /local/d1/users/mhofer/docker/spark/conf:/conf
-      - /local/d1/users/mhofer/docker/code-server/data/workspace:/workspace
-      - /local/d1/spark/tmp:/opt/spark/work-dir/tmp
-
+      SPARK_LOCAL_HOSTNAME: 'master'
+    # network_mode: "host"
+    ports:
+      - 7077:7077
+      - 18080:8080
+    # volumes:
+      # - spark-master-conf:/conf
+      # - spark-conf:/conf
+      # - spark-master-tmp:/opt/spark/work-dir/tmp
     deploy:
-      placement:
-        constraints:
-          - "node.role==manager"
+      # placement:
+      #   constraints:
+      #     - "node.role==manager"
           
   worker:
     image: spark:4.0.0-preview2-scala2.13-java17-python3-ubuntu
-    command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://athena1:37077
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
     hostname: worker
     environment:
       SPARK_CONF_DIR: /conf
-      SPARK_WORKER_CORES: 64
-      SPARK_WORKER_MEMORY: 256g
-      SPARK_WORKER_WEBUI_PORT: 38081
-      SPARK_LOCAL_HOSTNAME: '{{.Node.Hostname}}'
+      SPARK_WORKER_CORES: 8
+      SPARK_WORKER_MEMORY: 16g
+      SPARK_WORKER_WEBUI_PORT: 8081
+      SPARK_LOCAL_HOSTNAME: 'worker'
     depends_on:
       - master
-    networks:
-      - outside
-    volumes:
-      - /local/d1/spark/tmp:/tmp
-      - /local/d1/spark/work/:/opt/spark/work
-    deploy:
-      replicas: 8
-      placement:
-        max_replicas_per_node: 1
-        constraints:
-          - "node.role==worker"
+    # network_mode: "host"
+    # volumes:
+      # - spark-worker-conf:/opt/spark/work
+      # - spark-conf:/opt/spark/work
+      # - spark-worker-tmp:/tmp
+    # deploy:
+    #   replicas: 1
+      # placement:
+      #   max_replicas_per_node: 1
+      #   constraints:
+      #     - "node.role==worker"
 
-networks:
-  outside:
-    external:
-      name: "host"
+# networks:
+#   outside:
+#     external: true
+#     name: "host"
   

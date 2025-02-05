@@ -1,9 +1,10 @@
 IMAGE="127.0.0.1:5000/dbpedia/dief:latest"
 
-START_PORT=59017
-END_PORT=59032
+START_PORT=59001
+END_PORT=59004
 
-NODES=("athena2" "athena3" "athena4" "athena5" "athena6" "athena7" "athena8" "athena9")
+#NODES=("athena2" "athena3" "athena4" "athena5" "athena6" "athena7" "athena8" "athena9")
+NODES=("lenovo5pro")
 
 echo "STARTING ALL..."
 

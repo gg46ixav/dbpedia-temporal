@@ -16,7 +16,7 @@ RUN mkdir -p /app/extraction-framework/server/src/main/statistics
 
 # Step 6: Projekt bauen
 Add target/dief/server/target/*.jar server/
-Add taget/dief/server/server.default.properties server/
+Add target/dief/server/server.default.properties server/
 Add target/dief/server/src/main/statistics server/src/main/statistics/
 Add target/dief/mappings mappings/
 Add target/dief/ontology.xml .
