@@ -7,7 +7,7 @@ Explains the deployment of the spark and dief services on a docker swarm cluster
 First set your environmet variables at spark/env.env
 ```bash
 cd spark;
-docker stack -f docker-compose.yml
+docker stack -f docker-compose.yml spark
 ```
 
 ### DBpedia extraction framework

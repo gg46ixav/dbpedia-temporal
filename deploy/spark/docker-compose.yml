@@ -1,56 +1,72 @@
+
+x-spark-common:
+  &spark-common
+  # In order to add custom dependencies or upgrade provider packages you can use your extended image.
+  # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
+  # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
+  image: spark:4.0.0-preview2-scala2.13-java17-python3-ubuntu
+  # build: .
+  environment:
+    &spark-common-env
+    SPARK_CONF_DIR: /conf
+    # HADOOP_USER_NAME: hadena
+    # HADOOP_CONF_DIR: /conf/hadoop
+  volumes:
+    - ./share:/share
+#  network_mode: "host"
+
 services:
 
   master:
-    image: spark:4.0.0-preview2-scala2.13-java17-python3-ubuntu
+    <<: *spark-common
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     hostname: master
     environment:
-      # HADOOP_USER_NAME: hadena
-      # HADOOP_CONF_DIR: /conf/hadoop
-      SPARK_CONF_DIR: /conf
+      <<: *spark-common-env
+      SPARK_LOCAL_HOSTNAME: 'master'
       SPARK_MASTER_PORT: 7077
       SPARK_MASTER_WEBUI_PORT: 8080
-      SPARK_MASTER_OPTS: "-Dspark.master.rest.port=36060 -Dspark.ui.port=34040"
-      SPARK_LOCAL_HOSTNAME: 'master'
-    # network_mode: "host"
+      SPARK_MASTER_OPTS: "-Dspark.master.rest.port=6060 -Dspark.ui.port=4040"
     ports:
-      - 7077:7077
-      - 18080:8080
+      - 8080:8080 # SPARK Master Web Port
+      - 4040:4040 # SPARK Master Web Port
     # volumes:
       # - spark-master-conf:/conf
       # - spark-conf:/conf
       # - spark-master-tmp:/opt/spark/work-dir/tmp
-    deploy:
+#    deploy:
       # placement:
       #   constraints:
       #     - "node.role==manager"
-          
   worker:
-    image: spark:4.0.0-preview2-scala2.13-java17-python3-ubuntu
+    <<: *spark-common
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
     hostname: worker
     environment:
-      SPARK_CONF_DIR: /conf
-      SPARK_WORKER_CORES: 8
-      SPARK_WORKER_MEMORY: 16g
-      SPARK_WORKER_WEBUI_PORT: 8081
+      <<: *spark-common-env
       SPARK_LOCAL_HOSTNAME: 'worker'
+      SPARK_WORKER_CORES: 8
+      SPARK_WORKER_MEMORY: 8g
+      SPARK_WORKER_WEBUI_PORT: 8081
     depends_on:
       - master
-    # network_mode: "host"
+    ports:
+      - 8081:8081
     # volumes:
       # - spark-worker-conf:/opt/spark/work
       # - spark-conf:/opt/spark/work
       # - spark-worker-tmp:/tmp
-    # deploy:
-    #   replicas: 1
-      # placement:
-      #   max_replicas_per_node: 1
+#    deploy:
+#      replicas: 1
+#      placement:
+#        max_replicas_per_node: 1
       #   constraints:
       #     - "node.role==worker"
-
-# networks:
-#   outside:
-#     external: true
-#     name: "host"
   
+# volumes:
+#   spark-data-share:
+#     driver: local
+#networks:
+#  outside:
+#    external:
+#      name: "host"

@@ -10,7 +10,7 @@ We separated the generation process into 3 stages:
 # Quickly Running without SPARK
 
 Requirements for Linux:
-> git, docker, wget, java 8 & 17, maven, p7zip, make
+> git, docker, wget, java 8 & 17, maven, p7zip, make 
 
 Preparing single DIEF container and building Generator Code
 ```bash
@@ -43,9 +43,24 @@ java -cp target/*dependencies.jar ai.scads.odibel.main.Main dbpedia-tkg extract 
 
 Use `-f ngraph` to output the ngraph format (using sort -u might be required to remove duplicated start:tkg and tkg:end meta quads if multiple triples share the same lifespan).
 
+# Custom Configuration
+
+Two configuration files server properties and application.yaml in ODIBLE
+
+https://github.com/ScaDS/ODIBEL/blob/main/src/main/scala/ai/scads/odibel/datasets/wikitext/config/ProfileConfig.scala
+
+
 # Running with SWARM, HDFS, SPARK
 
-- [ ] TODO add statisitics on hardware requirements and usage
+**Requriements**
+- Disk Space: At least 4TB  
+    - Full meta history dumps (gz): ~2.6TB
+    - Full TKG in parquet is about 500GB
+- Total Cluster Memory: P × 3.5GB
+  - P = Parallelization (DIEF instances)
+  - Each DIEF instance requires 2–4GB for safety
+  - Each Spark should have 500MB
+
 
 ## 1. Infrastructure Deployment
 
@@ -57,7 +72,16 @@ All relevant scripts are located in `./deploy`.
 First set your environmet variables at spark/env.env
 ```bash
 cd spark;
-docker stack -f docker-compose.yml
+docker stack -f docker-compose.yml spark
+```
+
+### HDFS Cluster (Skip if already deployed)
+
+Configure `hdfs-sites.xml` and `core-sites.xml`
+
+```bash
+cd hdfs;
+docker stack -f docker-compose.yml hdfs
 ```
 
 ### DBpedia extraction framework
@@ -75,7 +99,7 @@ Deploy DIEF cluster
 **OPTION 1** Use dedicated services
 ```
 cd dief
-deploy-dief.sh $STARTPORT $ENDPORT $NDOE1 $NODE2 ...
+deploy-dief.sh $STARTPORT $ENDPORT $NODE1 $NODE2 ...
 ```
 
 **OPTION 2** Use ingress or other balancing
@@ -85,6 +109,15 @@ docker service create -n dief -p 9999:9999 --replicas $SCALE 127.0.0.1:5000/dbpe
 ```
 
 ## 2. Extraction
+
+### Download dumps
+
+Download `meta-history` dumps localy or to HDFS https://dumps.wikimedia.org/enwiki/
+For the spark based version, if choosing the 7z dumps it has to be transfored into gz or bz2 files afterwards.
+
+### Run extractions
+
+The `execute/Makefile` contains templates of running the extraction and other scripts. 
 
 # 3. Evaluation
 

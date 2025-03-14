@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<configuration>
+    <!-- Default filesystem (use the Namenode's hostname from docker-compose) -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://namenode:9000</value>
+    </property>
+
+    <!-- Temporary directory -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/tmp/hadoop</value>
+    </property>
+
+    <!-- Enable Hadoop NameNode web UI -->
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
+
+    <!-- Set the buffer size for filesystem IO -->
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>131072</value>
+    </property>
+</configuration>

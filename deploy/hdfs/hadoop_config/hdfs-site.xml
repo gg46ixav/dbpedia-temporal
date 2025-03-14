@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<configuration>
+    <!-- Set the directory where the NameNode stores metadata -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///opt/hadoop/data/nameNode</value>
+    </property>
+
+    <!-- Set the directory where the DataNodes store data -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///opt/hadoop/data/dataNode</value>
+    </property>
+
+    <!-- NameNode address (same as in docker-compose) -->
+    <property>
+        <name>dfs.namenode.rpc-address</name>
+        <value>namenode:9000</value>
+    </property>
+
+    <!-- Web UI address for the NameNode -->
+    <property>
+        <name>dfs.namenode.http-address</name>
+        <value>namenode:9870</value>
+    </property>
+
+    <!-- Replication factor (adjust based on the number of DataNodes) -->
+    <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+    </property>
+
+    <!-- Block size -->
+    <property>
+        <name>dfs.blocksize</name>
+        <value>128M</value>
+    </property>
+</configuration>

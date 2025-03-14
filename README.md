@@ -53,6 +53,10 @@ dbo:Leipzig,dbo:populationTotal,"605407"^<xsd:integer>, 2019-10-28, 2021-04-11, 
 
 see generation.md
 
+# Brief Benchmark
+
+see eval/benchmark.md
+
 # Development 
 
 Development notes.
