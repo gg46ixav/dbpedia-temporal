@@ -121,5 +121,5 @@ The `execute/Makefile` contains templates of running the extraction and other sc
 
 # 3. Evaluation
 
-The `generation` contains scripts for calculating statistics or metrics, and ploting results.
+The `eval` dir contains scripts for calculating statistics or metrics, and ploting results.
 
