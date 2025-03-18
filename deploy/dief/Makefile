@@ -1,7 +1,8 @@
 
 dief-clone:
 	mkdir -p target
-	git clone https://github.com/Maximiliantoepfer/extraction-framework target/dief
+	git clone https://github.com/Vehnem/extraction-framework.git target/dief
+	cd target/dief && git checkout better-remote-extraction
 
 # java 8 required
 dief-install:
