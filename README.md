@@ -67,6 +67,39 @@ Development notes.
 git submodule update --init --recursive
 ```
 
+# Citing
+
+```
+@inproceedings{DBLP:conf/esws/HoferTRR25,
+  author       = {Marvin Hofer and
+                  Maximilian Mario T{\"{o}}pfer and
+                  Christopher Rost and
+                  Erhard Rahm},
+  editor       = {Edward Curry and
+                  Maribel Acosta and
+                  Mar{\'{\i}}a Poveda{-}Villal{\'{o}}n and
+                  Marieke van Erp and
+                  Adegboyega K. Ojo and
+                  Katja Hose and
+                  Cogan Shimizu and
+                  Pasquale Lisena},
+  title        = {DBpedia-TKG: Capturing Wikipedia's Evolution as Temporal Knowledge
+                  Graphs},
+  booktitle    = {The Semantic Web - 22nd European Semantic Web Conference, {ESWC} 2025,
+                  Portoroz, Slovenia, June 1-5, 2025, Proceedings, Part {II}},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {15719},
+  pages        = {262--279},
+  publisher    = {Springer},
+  year         = {2025},
+  url          = {https://doi.org/10.1007/978-3-031-94578-6\_15},
+  doi          = {10.1007/978-3-031-94578-6\_15},
+  timestamp    = {Tue, 10 Jun 2025 17:38:39 +0200},
+  biburl       = {https://dblp.org/rec/conf/esws/HoferTRR25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+```
+
 # Licence
 
 The Generator is `GPLv3` and the Dataset is `CC-BY-SA 4.0.`
